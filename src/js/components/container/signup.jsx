@@ -1,7 +1,5 @@
 import SignUp from '../presentational/signup.jsx';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import '../presentational/column.css';
 import urls from './urls.js';
 import { Checkers } from '../presentational/signup.jsx';
 
@@ -9,29 +7,28 @@ let errorLogs = {};
 class SingupRender extends React.Component {
     constructor(props) {
         super(props);
-        document.body.style.height = '100%';
-        document.body.style.minHeight = '100%';
-        document.body.style.margin = '0';
-        document.body.style.padding = '0';
+        bodySetup();
     }
-    render() {
+    render = () => {
         return (
-            <SignUp />
+            <SignUp {...this.props} />
         );
     }
 }
 class EventHandler {
-    constructor(data) {
+    constructor(data, props) {
         this.data = data;
+        this.props = props;
     }
-    handleClick() {
-        let formHandler = new HandleFormData(this.data);
+    handleClick = () => {
+        let formHandler = new HandleFormData(this.data, this.props);
         formHandler.postData();
         return errorLogs;
     }
 }
 class HandleFormData {
-    constructor(data) {
+    constructor(data, props) {
+        this.props = props;
         this.Data = () => {
             let logs;
             if (!data) {
@@ -48,10 +45,19 @@ class HandleFormData {
                     'email'
                 ];
                 for (let key of fieldNames) {
-                    if (!Object.keys(data).includes(key)) {
+                    if (Checkers.isMissingKey(key, data) || Checkers.isMissingValue(key, data)) {
                         logs['invalidInput'] = 'Please fill in all the fields';
                         let errorString = 'Please fill in all the fields';
                         renderError(errorString);
+                        break;
+                    }
+                    if (key == 'email') {
+                        if (!Checkers.emailIsValid(data.email)) {
+                            let errorString = 'The email address is not valid';
+                            renderError(errorString);
+                            logs['invalidEmail'] = 'The email address is not valid';
+                            break;
+                        }
                     }
                 }
             }
@@ -59,7 +65,7 @@ class HandleFormData {
             return data;
         };
     }
-    postData() {
+    postData = () => {
         let data = this.Data();
         if (Checkers.isEmptyOject(errorLogs)) {
             clearError();
@@ -85,6 +91,8 @@ class HandleFormData {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify(data)
+                        }).then(res => {
+                            this.props.history.push("/login");
                         });
                     }
                 });
@@ -109,9 +117,12 @@ let clearError = () => {
     if (document.getElementById('err-log')) {
         document.getElementById('error').innerHTML = '';
     }
-}
-ReactDOM.render(
-    <SingupRender />,
-    document.getElementById('root')
-);
-export { EventHandler }
+};
+let bodySetup = () => {
+    document.body.style.height = '100%';
+    document.body.style.minHeight = '100%';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+};
+export default SingupRender;
+export { EventHandler, bodySetup, renderError, clearError };
