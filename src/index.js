@@ -1,1 +1,2 @@
-import FormContainer from './js/components/container/FormContainer.jsx';
+'use strict'
+import RenderHeader from './js/components/container/signup.jsx';
