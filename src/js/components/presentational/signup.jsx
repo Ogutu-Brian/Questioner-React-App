@@ -10,6 +10,7 @@ class SignUp extends React.Component {
         this.state = {};
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
     handleChange = (event) => {
         let states = Object.assign({}, this.state);
@@ -28,6 +29,10 @@ class SignUp extends React.Component {
         }
         return returnValue;
     }
+    handleCancel = (event) => {
+        event.preventDefault();
+        this.props.history.push('/login');
+    }
     render = () => {
         let fieldIds = {
             name: 'name',
@@ -39,7 +44,7 @@ class SignUp extends React.Component {
             <div className={`flex-container`}>
                 <LeftColumn />
                 <div className={`right-column`}>
-                    <button className='cancel-btn'>&times;</button>
+                    <button className='cancel-btn' onClick={this.handleCancel}>&times;</button>
                     <div className='logo'>
                         <img src={logo}></img>
                     </div>

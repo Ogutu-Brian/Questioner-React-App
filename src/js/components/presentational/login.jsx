@@ -17,7 +17,7 @@ class LoginPage extends React.Component {
     }
     clickLogIn = (event) => {
         event.preventDefault();
-        handleClick(this.state);
+        handleClick(this.state, this.props);
     }
     render = () => {
         let fieldIds = {
