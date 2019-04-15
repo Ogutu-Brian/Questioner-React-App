@@ -1,8 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './column.css';
+import './style.css';
 import { EventHandler } from '../container/signup.jsx';
-import { BrowserRouter, Link, Router } from 'react-router-dom';
 import logo from './images/logo.png';
 
 class SignUp extends React.Component {
@@ -12,25 +11,24 @@ class SignUp extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
-    handleChange(event) {
-        let states = Object.assign(this.state);
+    handleChange = (event) => {
+        let states = Object.assign({}, this.state);
         states[event.target.id] = event.target.value;
         this.setState(states);
-        localStorage.clear();
     }
-    handleClick(event) {
+    handleClick = (event) => {
         event.preventDefault();
-        let eventHandler = new EventHandler(this.getInputData());
+        let eventHandler = new EventHandler(this.getInputData(), this.props);
         eventHandler.handleClick();
     }
-    getInputData() {
+    getInputData = () => {
         let returnValue = null;
         if (!Checkers.isEmptyOject(this.state)) {
             returnValue = this.state;
         }
         return returnValue;
     }
-    render() {
+    render = () => {
         let fieldIds = {
             name: 'name',
             nickName: 'nick_name',
@@ -42,11 +40,11 @@ class SignUp extends React.Component {
                 <LeftColumn />
                 <div className={`right-column`}>
                     <button className='cancel-btn'>&times;</button>
-                    <div className='error-log' id='error'></div>
                     <div className='logo'>
                         <img src={logo}></img>
                     </div>
                     <p className='title'>Welcome to meetups center</p>
+                    <div className='error-log' id='error'></div>
                     <div className={`form`}>
                         <form>
                             <input type="text" placeholder="Your name"
@@ -95,13 +93,26 @@ let LeftColumn = () => {
     );
 }
 class Checkers {
-    static isEmptyOject(obj) {
+    static isEmptyOject = (obj) => {
         let empty = true;
         for (let key in obj) {
             if (obj.hasOwnProperty(key))
                 empty = false;
         }
         return empty;
+    }
+    static isMissingKey = (key, obj) => {
+        return (!Object.keys(obj).includes(key));
+    }
+    static isMissingValue = (key, obj) => {
+        let missingValue = true;
+        if (obj[key]) {
+            missingValue = false;
+        }
+        return missingValue;
+    }
+    static emailIsValid = (email) => {
+        return (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
     }
 }
 export default SignUp;

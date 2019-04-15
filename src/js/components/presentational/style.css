@@ -69,7 +69,7 @@
 .cancel-btn {
     color: dodgerblue;
     margin-left: 90%;
-    margin-top: 5%;
+    margin-top: 1%;
     background-color: white;
     border-style: none;
     font-weight: normal;
@@ -85,7 +85,7 @@
 }
 
 .logo {
-    margin-top: 2em;
+    margin-top: 0px;
     font-weight: bolder;
     text-align: center;
     margin-left: 8%;
@@ -107,6 +107,78 @@
     flex-wrap: wrap;
 }
 
-*:focus {
-    outline: 0 !important;
+.login-page {
+    background-color: white;
+}
+
+@media screen and (min-width:992px) {
+    .login-page img {
+        margin-left: 40%;
+        width: 20%;
+        margin-top: 10%;
+    }
+
+    .login-form input {
+        border-radius: 5px;
+        margin-top: 20px;
+        width: 35%;
+        border-style: solid;
+        border-width: thin;
+        padding: 5px 5px 5px 5px;
+        border-color: #d9d9d9;
+        height: 45px;
+        margin-left: 32.5%;
+        font-weight: normal;
+        padding-left: 10px;
+        outline: none;
+    }
+
+    .login-btn {
+        width: 35%;
+        margin-top: 15px;
+        margin-left: 32.5%;
+        height: 45px;
+        border-radius: 5px;
+    }
+
+    .login-error {
+        width: 35%;
+        margin-left: 32.5%;
+    }
+}
+
+@media screen and (max-width:991px) {
+    .login-page img {
+        margin-left: 30%;
+        width: 40%;
+        margin-top: 10%;
+    }
+
+    .login-form input {
+        border-radius: 5px;
+        margin-top: 20px;
+        width: 70%;
+        border-style: solid;
+        border-width: thin;
+        padding: 5px 5px 5px 5px;
+        border-color: #d9d9d9;
+        height: 45px;
+        margin-left: 15%;
+        font-weight: normal;
+        padding-left: 10px;
+        outline: none;
+    }
+
+    .login-btn {
+        width: 70%;
+        margin-top: 15px;
+        margin-left: 15%;
+        height: 45px;
+        border-radius: 5px;
+    }
+
+    .login-error {
+        width: 70%;
+        margin-left: 15%;
+    }
 }
