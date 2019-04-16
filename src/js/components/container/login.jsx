@@ -16,7 +16,7 @@ class LoginRender extends React.Component {
         );
     }
 }
-let handleClick = (data) => {
+let handleClick = (data,props) => {
     if (Checkers.isEmptyOject(data)) {
         renderError('Please fill in the fields');
     } else if (Checkers.isMissingKey('email', data) || Checkers.isMissingValue('email', data)) {
@@ -27,13 +27,14 @@ let handleClick = (data) => {
         renderError('The email address is not valid');
     } else {
         clearError();
-        let loginHandler = new LoginHandler(data);
+        let loginHandler = new LoginHandler(data,props);
         loginHandler.postData();
     }
 }
 class LoginHandler {
-    constructor(data) {
+    constructor(data,props) {
         this.data = data;
+        this.props = props
     }
     postData = () => {
         fetch(urls.logInUrl, {
@@ -46,6 +47,8 @@ class LoginHandler {
             .then(data => {
                 if (data.code == 'authentication_failed') {
                     renderError(data.detail);
+                }else{
+                    this.props.history.push('/meetups');
                 }
             });
     }

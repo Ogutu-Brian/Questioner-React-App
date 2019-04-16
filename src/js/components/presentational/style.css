@@ -182,3 +182,60 @@
         margin-left: 15%;
     }
 }
+
+.upcoming-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2%;
+    margin-left: 6%;
+}
+
+.small-card {
+    width: 30%;
+    padding: 5px 5px 5px 5px;
+    margin-right: 12px;
+    background-color: green;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.meetup-icon img {
+    width: 20%;
+    margin-left: 40%;
+    margin-bottom: 2%;
+}
+
+@media screen and (min-width:821px) {
+    .meetup-card {
+        width: 30%;
+        margin-left: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+@media screen and (max-width:820px) {
+    .meetup-card {
+        width: 40%;
+        margin-left: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .meetup-card {
+        width: 70%;
+        margin-left: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+.card-table {
+    width: 100%;
+}

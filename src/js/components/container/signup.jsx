@@ -1,7 +1,6 @@
-import SignUp from '../presentational/signup.jsx';
+import SignUp,{ Checkers } from '../presentational/signup.jsx';
 import React from 'react';
 import urls from './urls.js';
-import { Checkers } from '../presentational/signup.jsx';
 
 let errorLogs = {};
 class SingupRender extends React.Component {
